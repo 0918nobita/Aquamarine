@@ -7,6 +7,7 @@ import java.io.Reader;
  */
 public class Lexer {
     public Reader reader;
+    private int tok; // advance()の処理中にセットされる
 
     /** readerはトークンの読み込み元
      */
@@ -23,6 +24,7 @@ public class Lexer {
             if (c < 0) return false;
             if (Character.isDigit((char)c)) {
                 // 数字が続く限り読み込む
+                // tok = TokenType.INT;
             } else {
                 throw new Exception("数字ではありません");
             }
@@ -31,5 +33,12 @@ public class Lexer {
             return false;
         }
         return true;
+    }
+
+    /** 現在のトークンの種類を返す
+     * @return トークンの種類を示す整数値
+     */
+    public int token() {
+        return tok;
     }
 }
