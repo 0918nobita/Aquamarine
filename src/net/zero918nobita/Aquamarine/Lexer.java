@@ -6,12 +6,10 @@ import java.io.Reader;
  * Created by 0918nobita on 2016/03/09.
  */
 public class Lexer {
-    public Reader reader;
+    public Reader reader; // トークンの読み込み元
     private int tok; // advance()の処理中にセットされる
     private Object val; // advance()の処理中にセットされる
 
-    /** readerはトークンの読み込み元
-     */
     public Lexer(Reader r) {
         reader = r;
     }
