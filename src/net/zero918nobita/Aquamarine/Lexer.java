@@ -22,7 +22,7 @@ public class Lexer {
             int c = reader.read();
             if (c < 0) return false;
             if (Character.isDigit((char)c)) {
-                // 数字が続く限り読み込み、valにセットする
+                lexDigit();
                 // tok = TokenType.INT;
             } else {
                 throw new Exception("数字ではありません");
@@ -46,5 +46,17 @@ public class Lexer {
      */
     public Object value() {
         return val;
+    }
+
+    /** 文字を1文字ずつ読み込んでいって、数字を表す文字が続く限り読み込んでいき、それを数値に変換する
+     */
+    private void lexDigit() throws Exception {
+        int num = 0;
+        while (true) {
+            int c = reader.read();
+            if (c < 0 || !Character.isDigit((char)c)) break;
+            num = (num * 10) + (c - '0');
+        }
+        val = new Integer(num);
     }
 }
