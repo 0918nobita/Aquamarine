@@ -55,7 +55,13 @@ public class Lexer {
         int num = 0;
         while (true) {
             int c = reader.read();
-            if (c < 0 || !Character.isDigit((char)c)) break;
+            if (c < 0) {
+                break;
+            }
+            if (!Character.isDigit((char)c)) {
+                reader.unread();
+                break;
+            }
             num = (num * 10) + (c - '0');
         }
         val = new Integer(num);
