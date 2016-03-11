@@ -19,6 +19,7 @@ public class Lexer {
      */
     public boolean advance() {
         try {
+            skipWhiteSpace();
             int c = reader.read();
             if (c < 0) return false;
             if (Character.isDigit((char)c)) {
@@ -65,5 +66,16 @@ public class Lexer {
             num = (num * 10) + (c - '0');
         }
         val = new Integer(num);
+    }
+
+    /** 空白文字をスキップする
+     * @throws Exception
+     */
+    public void skipWhiteSpace() throws Exception {
+        int c = reader.read();
+        while ((c != -1) && Character.isWhitespace((char)c)) {
+            c = reader.read();
+        }
+        reader.unread();
     }
 }

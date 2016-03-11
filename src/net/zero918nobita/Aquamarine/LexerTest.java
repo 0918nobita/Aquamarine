@@ -9,20 +9,23 @@ import junit.framework.TestCase;
  */
 public class LexerTest extends TestCase {
     public void testToken() {
-        Reader reader = new StringReader("1234");
+        Reader reader = new StringReader("1234 5678");
         Lexer lex = new Lexer(reader);
-        if (lex.advance()) {
+        while (lex.advance()) {
             assertEquals(lex.token(), TokenType.INT);
-        } else {
-            fail();
         }
     }
 
     public void testValue() {
-        Reader reader = new StringReader("1234");
+        Reader reader = new StringReader("1234 5678");
         Lexer lex = new Lexer(reader);
         if (lex.advance()) {
             assertEquals(lex.value(), new Integer(1234));
+        } else {
+            fail();
+        }
+        if (lex.advance()) {
+            assertEquals(lex.value(), new Integer(5678));
         } else {
             fail();
         }
