@@ -23,7 +23,7 @@ public class Lexer {
             if (c < 0) return false;
             if (Character.isDigit((char)c)) {
                 lexDigit();
-                // tok = TokenType.INT;
+                tok = TokenType.INT;
             } else {
                 throw new Exception("数字ではありません");
             }
