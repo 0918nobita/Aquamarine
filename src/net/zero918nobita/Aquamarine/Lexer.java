@@ -6,12 +6,12 @@ import java.io.Reader;
  * Created by 0918nobita on 2016/03/09.
  */
 public class Lexer {
-    private Reader reader; // トークンの読み込み元
+    private LexerReader reader; // トークンの読み込み元
     private int tok; // advance()の処理中にセットされる
     private Object val; // advance()の処理中にセットされる
 
     public Lexer(Reader r) {
-        reader = r;
+        reader = new LexerReader(r);
     }
 
     /** 次のトークンに進む
@@ -22,6 +22,7 @@ public class Lexer {
             int c = reader.read();
             if (c < 0) return false;
             if (Character.isDigit((char)c)) {
+                reader.unread();
                 lexDigit();
                 tok = TokenType.INT;
             } else {
