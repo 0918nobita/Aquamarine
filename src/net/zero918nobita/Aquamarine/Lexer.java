@@ -22,12 +22,24 @@ public class Lexer {
             skipWhiteSpace();
             int c = reader.read();
             if (c < 0) return false;
-            if (Character.isDigit((char)c)) {
-                reader.unread();
-                lexDigit();
-                tok = TokenType.INT;
-            } else {
-                throw new Exception("数字ではありません");
+            switch (c) {
+                case ';':
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    // ;,+,-,*,/ のときには文字コードがそのままトークンの種類を表す
+                    tok = c;
+                    break;
+                default:
+                    if (Character.isDigit((char) c)) {
+                        reader.unread();
+                        lexDigit();
+                        tok = TokenType.INT;
+                    } else {
+                        throw new Exception("数字ではありません");
+                    }
+                    break;
             }
         } catch(Exception e) {
             e.printStackTrace();
