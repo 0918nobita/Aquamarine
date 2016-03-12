@@ -43,7 +43,7 @@ public class Aquamarine {
                 }
                 JTCode code = (JTCode) parser.parse(lex);
                 if (code == null) break;
-                System.out.println("解析終了");
+                System.out.println("解析終了: " + code.toString());
             }
             in.close();
         } catch(FileNotFoundException e) {
