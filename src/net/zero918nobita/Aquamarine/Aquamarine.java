@@ -1,6 +1,7 @@
 package net.zero918nobita.Aquamarine;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 
@@ -44,6 +45,15 @@ public class Aquamarine {
                 if (code == null) break;
                 System.out.println("解析終了");
             }
-        } catch(Exception e) {}
+            in.close();
+        } catch(FileNotFoundException e) {
+            if (args.length > 0) {
+                System.out.println("can't open file '" + args[0] + "'");
+            } else {
+                System.out.println("can't open file");
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
