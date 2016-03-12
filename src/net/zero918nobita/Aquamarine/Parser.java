@@ -5,10 +5,22 @@ package net.zero918nobita.Aquamarine;
  */
 public class Parser {
     private Lexer lex;
+    private int token; // 先読みしたトークン
+
+    /** トークンを先読みする
+     */
+    private void getToken() {
+        if (lex.advance()) {
+            token = lex.token();
+        } else {
+            token = TokenType.EOS; // 次のトークンが存在しない場合は EOS を設定しておく
+        }
+    }
 
     public JTCode parse(Lexer lexer) {
         JTCode code = null;
         lex = lexer;
+        getToken(); // あらかじめトークンを先読みしておく
         try {
             code = program();
         } catch(Exception e) {
@@ -17,21 +29,86 @@ public class Parser {
         return code;
     }
 
-    public JTCode program() throws Exception {
-        return expr();
+    private JTCode program() throws Exception {
+        JTCode code = expr();
+        if (code != null) {
+            switch (token) {
+                case TokenType.EOS: //空のプログラム
+                    break;
+                case TokenType.INT: //トークンが数値ならOK！
+                    code = new JTInt((Integer)lex.value());
+                    getToken(); //次のトークンを読み込む
+                    break;
+                default: // 数値以外だとエラー！
+                    throw new Exception("文法エラーです");
+            }
+        }
+        return code;
     }
 
-    public JTCode expr() throws Exception {
-        JTCode code = null;
-        if (lex.advance()) {
-            int token = lex.token();
-            switch (token) {
-                case TokenType.INT:
-                    code = new JTInt((Integer) lex.value());
-                    break;
-                default:
-                    throw new Exception("文法エラー");
+    private JTCode expr() throws Exception {
+        JTCode code = term();
+        switch (token) {
+            case '+':
+            case '-':
+                code = expr2(code);
+                break;
+        }
+        return code;
+    }
+
+    private JTBinExpr expr2(JTCode code) throws Exception {
+        JTBinExpr result = null;
+        while ((token == '+') || (token == '-')) {
+            int op = token;
+            getToken();
+            JTCode code2 = term();
+            if (result == null) {
+                result = new JTBinExpr(op, code, code2);
+            } else {
+                result = new JTBinExpr(op, result, code2);
             }
+        }
+        return result;
+    }
+
+    private JTCode term() throws Exception {
+        JTCode code = factor();
+        switch (token) {
+            case '*':
+            case '/':
+                code = term2(code);
+                break;
+        }
+        return code;
+    }
+
+    private JTCode term2(JTCode code) throws Exception {
+        JTBinExpr result = null;
+        while ((token == '*') || (token == '/')) {
+            int op = token;
+            getToken();
+            JTCode code2 = term();
+            if (result == null) {
+                result = new JTBinExpr(op, code, code2);
+            } else {
+                result = new JTBinExpr(op, result, code2);
+            }
+        }
+        return result;
+    }
+
+    private JTCode factor() throws Exception {
+        JTCode code = null;
+        switch (token) {
+            case TokenType.EOS:
+                break;
+            case TokenType.INT:
+                code = new JTInt((Integer)lex.value());
+                getToken();
+                break;
+            default:
+                throw new Exception("文法エラーです");
         }
         return code;
     }
