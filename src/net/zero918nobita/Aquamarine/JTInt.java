@@ -23,6 +23,7 @@ public class JTInt extends JTCode {
         return Integer.toString(value);
     }
 
+    /** 足し算 */
     @Override
     public JTCode add(JTCode code) throws Exception {
         JTCode result = null;
@@ -34,6 +35,7 @@ public class JTInt extends JTCode {
         return result;
     }
 
+    /** 引き算 */
     @Override
     public JTCode sub(JTCode code) throws Exception {
         JTCode result = null;
@@ -45,6 +47,7 @@ public class JTInt extends JTCode {
         return result;
     }
 
+    /** 掛け算 */
     @Override
     public JTCode multiply(JTCode code) throws Exception {
         JTCode result = null;
@@ -56,6 +59,7 @@ public class JTInt extends JTCode {
         return result;
     }
 
+    /** 割り算 */
     @Override
     public JTCode divide(JTCode code) throws Exception {
         JTCode result = null;
