@@ -107,6 +107,12 @@ public class Parser {
                 getToken();
                 code = new JTMinus(factor());
                 break;
+            case '(':
+                getToken();
+                code = expr();
+                if (token != ')') throw new Exception("文法エラー: 対応する括弧がありません");
+                getToken();
+                break;
             default:
                 throw new Exception("文法エラーです");
         }
