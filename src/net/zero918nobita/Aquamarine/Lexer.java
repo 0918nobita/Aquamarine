@@ -28,6 +28,8 @@ public class Lexer {
                 case '-':
                 case '*':
                 case '/':
+                case '(':
+                case ')':
                     // ;,+,-,*,/ のときには文字コードがそのままトークンの種類を表す
                     tok = c;
                     break;
