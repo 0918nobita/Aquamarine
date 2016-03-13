@@ -29,7 +29,7 @@ public class JTBinExpr extends JTCode {
                 result = c1.multiply(c2);
                 break;
             case '/':
-                result = c1.devide(c2);
+                result = c1.divide(c2);
                 break;
         }
         return result;

@@ -20,7 +20,7 @@ public abstract class JTCode {
         throw new Exception("このオブジェクトに演算子'＊'は使えません");
     }
 
-    public JTCode devide(JTCode code) throws Exception {
+    public JTCode divide(JTCode code) throws Exception {
         throw new Exception("このオブジェクトに演算子'／'は使えません");
     }
 }

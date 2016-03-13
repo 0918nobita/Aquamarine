@@ -57,7 +57,7 @@ public class JTInt extends JTCode {
     }
 
     @Override
-    public JTCode devide(JTCode code) throws Exception {
+    public JTCode divide(JTCode code) throws Exception {
         JTCode result = null;
         if (code.getClass() != JTInt.class) {
             throw new Exception("数値以外のものを割ろうとしました");
