@@ -33,13 +33,9 @@ public class Parser {
         JTCode code = expr();
         if (code != null) {
             switch (token) {
-                case TokenType.EOS: //空のプログラム
+                case ';': // セミコロン(;)が文の終わりを表す
                     break;
-                case TokenType.INT: //トークンが数値ならOK！
-                    code = new JTInt((Integer)lex.value());
-                    getToken(); //次のトークンを読み込む
-                    break;
-                default: // 数値以外だとエラー！
+                default:
                     throw new Exception("文法エラーです");
             }
         }
