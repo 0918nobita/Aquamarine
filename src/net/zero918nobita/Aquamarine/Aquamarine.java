@@ -41,9 +41,9 @@ public class Aquamarine {
                     // 標準入力から読み込んでいるときはプロンプトを表示
                     System.out.print("Aquamarine: ");
                 }
-                JTCode code = (JTCode) parser.parse(lex);
+                JTCode code = parser.parse(lex);
                 if (code == null) break;
-                System.out.println("解析終了: " + code.toString());
+                System.out.println("解析終了: " + code.run().toString());
             }
             in.close();
         } catch(FileNotFoundException e) {
