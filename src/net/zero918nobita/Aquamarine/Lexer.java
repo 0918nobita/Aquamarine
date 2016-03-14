@@ -1,6 +1,7 @@
 package net.zero918nobita.Aquamarine;
 
 import java.io.Reader;
+import java.math.BigDecimal;
 
 /**
  * Created by 0918nobita on 2016/03/09.
@@ -37,7 +38,12 @@ public class Lexer {
                     if (Character.isDigit((char) c)) {
                         reader.unread();
                         lexDigit();
-                        tok = TokenType.INT;
+                        if (val.getClass() == Integer.class) {
+                            tok = TokenType.INT;
+                        }
+                        if (val.getClass() == Double.class) {
+                            tok = TokenType.DOUBLE;
+                        }
                     } else {
                         throw new Exception("数字ではありません");
                     }
@@ -67,19 +73,30 @@ public class Lexer {
     /** 文字を1文字ずつ読み込んでいって、数字を表す文字が続く限り読み込んでいき、それを数値に変換する
      */
     private void lexDigit() throws Exception {
-        int num = 0;
+        BigDecimal num = new BigDecimal("0");
+        boolean point = false; // 小数かどうか
+        int decimal_place = 0; // 小数第何位に達しているか
         while (true) {
             int c = reader.read();
-            if (c < 0) {
-                break;
-            }
-            if (!Character.isDigit((char)c)) {
+            if (c < 0) break;
+            if (!Character.isDigit((char)c) && c != '.') { // 数字でも小数点でもないならエラー
                 reader.unread();
                 break;
             }
-            num = (num * 10) + (c - '0');
+            if (c == '.' && point) throw new Exception("文法エラー"); // 2つ以上小数点が存在するのでエラー
+            if (c == '.' && !point) point = true; // はじめて小数点が登場したので val に Double を代入するように設定
+            if (point && c != '.') {
+                decimal_place++;
+                num = num.add(new BigDecimal(c-'0').multiply(new BigDecimal("0.1").pow(decimal_place)));
+            } else if (c != '.') {
+                num = num.multiply(new BigDecimal("10")).add(new BigDecimal(c-'0'));
+            }
         }
-        val = new Integer(num);
+        if (point) {
+            val = new Double(num.doubleValue());
+        } else {
+            val = new Integer(num.intValue()); // 整数だったのでint型にキャストしてから Integer を代入
+        }
     }
 
     /** 空白文字をスキップする

@@ -1,26 +1,26 @@
 package net.zero918nobita.Aquamarine;
 
 /**
- * Created by 0918nobita on 2016/03/12.
+ * Created by 0918nobita on 2016/03/13.
  */
-public class JTInt extends JTCode {
-    private int value; // 数値
+public class JTDouble extends JTCode {
+    private double value; // 数値
 
-    public JTInt(Integer integer) {
-        value = integer.intValue();
+    public JTDouble(Double dbl) {
+        value = dbl.doubleValue();
     }
 
-    public JTInt(int i) {
-        value = i;
+    public JTDouble(double d) {
+        value = d;
     }
 
-    public int getValue() { // 記憶している数値を返す
+    public double getValue() {
         return value;
     }
 
     @Override
-    public String toString() { // 数値を文字列に変換したものを返す
-        return Integer.toString(value);
+    public String toString() {
+        return Double.toString(value);
     }
 
     /** 足し算 */
@@ -29,10 +29,10 @@ public class JTInt extends JTCode {
         JTCode result;
         if (code.getClass() == JTInt.class) {
             JTInt i = (JTInt)code;
-            result = new JTInt(value + i.getValue());
+            result = new JTDouble(value + i.getValue());
             return result;
         } else if (code.getClass() == JTDouble.class) {
-            JTDouble dbl = (JTDouble)code;
+            JTDouble dbl = (JTDouble) code;
             result = new JTDouble(value + dbl.getValue());
             return result;
         } else {
@@ -46,7 +46,7 @@ public class JTInt extends JTCode {
         JTCode result;
         if (code.getClass() == JTInt.class) {
             JTInt i = (JTInt)code;
-            result = new JTInt(value - i.getValue());
+            result = new JTDouble(value - i.getValue());
             return result;
         } else if (code.getClass() == JTDouble.class) {
             JTDouble dbl = (JTDouble)code;
@@ -55,16 +55,14 @@ public class JTInt extends JTCode {
         } else {
             throw new Exception("数値以外のものを引こうとしました");
         }
-
     }
 
     /** 掛け算 */
-    @Override
     public JTCode multiply(JTCode code) throws Exception {
-        JTCode result = null;
+        JTCode result;
         if (code.getClass() == JTInt.class) {
             JTInt i = (JTInt)code;
-            result = new JTInt(value * i.getValue());
+            result = new JTDouble(value * i.getValue());
             return result;
         } else if (code.getClass() == JTDouble.class) {
             JTDouble dbl = (JTDouble)code;
@@ -76,12 +74,11 @@ public class JTInt extends JTCode {
     }
 
     /** 割り算 */
-    @Override
     public JTCode divide(JTCode code) throws Exception {
-        JTCode result = null;
+        JTCode result;
         if (code.getClass() == JTInt.class) {
             JTInt i = (JTInt)code;
-            result = new JTInt(value / i.getValue());
+            result = new JTDouble(value / i.getValue());
             return result;
         } else if (code.getClass() == JTDouble.class) {
             JTDouble dbl = (JTDouble)code;

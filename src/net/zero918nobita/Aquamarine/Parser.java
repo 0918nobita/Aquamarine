@@ -103,6 +103,10 @@ public class Parser {
                 code = new JTInt((Integer)lex.value());
                 getToken();
                 break;
+            case TokenType.DOUBLE:
+                code = new JTDouble((Double)lex.value());
+                getToken();
+                break;
             case '-':
                 getToken();
                 code = new JTMinus(factor());
