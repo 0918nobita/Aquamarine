@@ -69,7 +69,7 @@ public class JTDouble extends JTCode {
             result = new JTDouble(value * dbl.getValue());
             return result;
         } else {
-            throw new Exception("数値以外のものを引こうとしました");
+            throw new Exception("数値以外のものを掛けようとしました");
         }
     }
 
@@ -85,7 +85,7 @@ public class JTDouble extends JTCode {
             result = new JTDouble(value / dbl.getValue());
             return result;
         } else {
-            throw new Exception("数値以外のものを引こうとしました");
+            throw new Exception("数値以外のものを割ろうとしました");
         }
     }
 }
