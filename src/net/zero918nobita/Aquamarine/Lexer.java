@@ -109,7 +109,7 @@ public class Lexer {
         while (true) {
             int c = reader.read();
             if (c < 0) throw new Exception("ファイルの終わりに到達しました");
-            if (!Character.isJavaIdentifierStart((char)c)) {
+            if (!Character.isJavaIdentifierPart((char)c)) {
                 reader.unread();
                 break;
             }
