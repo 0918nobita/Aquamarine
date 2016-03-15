@@ -31,6 +31,7 @@ public class Lexer {
                 case '/':
                 case '(':
                 case ')':
+                case '=':
                     // ;,+,-,*,/ のときには文字コードがそのままトークンの種類を表す
                     tok = c;
                     break;
@@ -44,6 +45,9 @@ public class Lexer {
                         if (val.getClass() == Double.class) {
                             tok = TokenType.DOUBLE;
                         }
+                    } else if (Character.isJavaIdentifierStart((char)c)) {
+                        reader.unread();
+                        // lexSymbol();
                     } else {
                         throw new Exception("数字ではありません");
                     }
