@@ -47,7 +47,7 @@ public class Lexer {
                         }
                     } else if (Character.isJavaIdentifierStart((char)c)) {
                         reader.unread();
-                        // lexSymbol();
+                        lexSymbol();
                     } else {
                         throw new Exception("数字ではありません");
                     }
@@ -101,6 +101,22 @@ public class Lexer {
         } else {
             val = new Integer(num.intValue()); // 整数だったのでint型にキャストしてから Integer を代入
         }
+    }
+
+    private void lexSymbol() throws Exception {
+        tok = TokenType.SYMBOL;
+        StringBuffer buf = new StringBuffer();
+        while (true) {
+            int c = reader.read();
+            if (c < 0) throw new Exception("ファイルの終わりに到達しました");
+            if (!Character.isJavaIdentifierStart((char)c)) {
+                reader.unread();
+                break;
+            }
+            buf.append((char)c);
+        }
+        String s = buf.toString();
+        // val = JTSymbol.intern(s);
     }
 
     /** 空白文字をスキップする
