@@ -37,7 +37,10 @@ public class Lexer {
                 case '/':
                     c = reader.read();
                     if (c == '/') {
-                        //skipLineComment();
+                        skipLineComment();
+                        return advance();
+                    } else if (c == '*') {
+                        skipComment();
                         return advance();
                     } else {
                         reader.unread();
@@ -137,5 +140,25 @@ public class Lexer {
             c = reader.read();
         }
         reader.unread();
+    }
+
+    private void skipLineComment() throws Exception {
+        int c;
+        while ((c = reader.read()) != '\n') {
+            if (c < 0) throw new Exception("コメント中にファイルの末端に到達しました");
+        }
+        reader.unread();
+    }
+
+    private void skipComment() throws Exception {
+        int c;
+        while (true) {
+            c = reader.read();
+            if (c < 0) throw new Exception("コメント中にファイルの末端に到達しました");
+            if (c == '*') {
+                c = reader.read();
+                if (c == '/') break;
+            }
+        }
     }
 }
