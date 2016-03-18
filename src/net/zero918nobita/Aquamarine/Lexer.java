@@ -28,12 +28,21 @@ public class Lexer {
                 case '+':
                 case '-':
                 case '*':
-                case '/':
                 case '(':
                 case ')':
                 case '=':
                     // ;,+,-,*,/ のときには文字コードがそのままトークンの種類を表す
                     tok = c;
+                    break;
+                case '/':
+                    c = reader.read();
+                    if (c == '/') {
+                        //skipLineComment();
+                        return advance();
+                    } else {
+                        reader.unread();
+                        tok = '/';
+                    }
                     break;
                 default:
                     if (Character.isDigit((char) c)) {
