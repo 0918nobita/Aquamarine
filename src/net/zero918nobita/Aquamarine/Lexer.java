@@ -116,7 +116,7 @@ public class Lexer {
             buf.append((char)c);
         }
         String s = buf.toString();
-        // val = JTSymbol.intern(s);
+        val = JTSymbol.intern(s);
     }
 
     /** 空白文字をスキップする

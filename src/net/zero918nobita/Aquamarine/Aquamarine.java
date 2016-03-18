@@ -4,11 +4,27 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.Hashtable;
 
 /**
  * Created by 0918nobita on 2016/03/12.
  */
 public class Aquamarine {
+    // 変数を記録しておくHashtable
+    public static Hashtable Globals = new Hashtable();
+
+    public static boolean hasSymbol(JTSymbol sym) { // 変数が存在するかどうか
+        return Globals.contains(sym);
+    }
+
+    public static JTCode getSymbolValue(JTSymbol sym) { // 変数の値を取り出す
+        return (JTCode)Globals.get(sym);
+    }
+
+    public static void set(JTSymbol sym, JTCode code) { // 変数に値をセットする
+        Globals.put(sym, code);
+    }
+
     static void usage() {
         System.out.println("usage: java Aquamarine [source_filename]");
     }

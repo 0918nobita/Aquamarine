@@ -5,8 +5,8 @@ package net.zero918nobita.Aquamarine;
  */
 public class JTBinExpr extends JTCode {
     private int op; // 演算子の種類(＋,－,＊,／)
-    private JTCode code1; // 左側の式
-    private JTCode code2; // 右側の式
+    protected JTCode code1; // 左側の式
+    protected JTCode code2; // 右側の式
 
     public JTBinExpr(int operator, JTCode c1, JTCode c2) {
         op = operator;

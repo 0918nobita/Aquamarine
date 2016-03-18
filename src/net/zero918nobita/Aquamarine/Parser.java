@@ -117,6 +117,16 @@ public class Parser {
                 if (token != ')') throw new Exception("文法エラー: 対応する括弧がありません");
                 getToken();
                 break;
+            case TokenType.SYMBOL:
+                JTSymbol sym = (JTSymbol)lex.value();
+                getToken();
+                if (token == '=') {
+                    getToken(); // skip '='
+                    code = new JTAssign(sym, expr());
+                } else {
+                    code = sym;
+                }
+                break;
             default:
                 throw new Exception("文法エラーです");
         }
