@@ -48,7 +48,7 @@ public class Lexer {
                     }
                     break;
                 case '"':
-                    // lexString();
+                    lexString();
                     tok = TokenType.STRING;
                     break;
                 default:
@@ -117,6 +117,22 @@ public class Lexer {
         } else {
             val = new Integer(num.intValue()); // 整数だったのでint型にキャストしてから Integer を代入
         }
+    }
+
+    private void lexString() throws Exception {
+        StringBuffer buf = new StringBuffer();
+        while (true) {
+            int c = reader.read();
+            if (c < 0) throw new Exception("文字列中でファイルの終わりに到達しました");
+            if (c == '"') {
+                break;
+            } else if (c == '\\') {
+                c = reader.read();
+                if (c < 0) throw new Exception("文字列中でファイルの終わりに到達しました");
+            }
+            buf.append((char)c);
+        }
+        val = buf.toString();
     }
 
     private void lexSymbol() throws Exception {
