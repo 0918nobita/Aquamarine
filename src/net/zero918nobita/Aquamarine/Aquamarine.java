@@ -50,6 +50,7 @@ public class Aquamarine {
                 in = new BufferedReader(new FileReader(args[0]));
             }
 
+            long start = System.nanoTime();
             Lexer lex = new Lexer(in);
             Parser parser = new Parser();
             while (true) {
@@ -57,10 +58,15 @@ public class Aquamarine {
                     // 標準入力から読み込んでいるときはプロンプトを表示
                     System.out.print("Aquamarine: ");
                 }
+
                 JTCode code = parser.parse(lex);
+
                 if (code == null) break;
                 System.out.println("解析終了: " + code.run().toString());
+
             }
+            long end = System.nanoTime();
+            System.out.println("処理時間：" + (end - start) + "ms");
             in.close();
         } catch(FileNotFoundException e) {
             if (args.length > 0) {
