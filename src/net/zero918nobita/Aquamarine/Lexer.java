@@ -120,7 +120,7 @@ public class Lexer {
     }
 
     private void lexString() throws Exception {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         while (true) {
             int c = reader.read();
             if (c < 0) throw new Exception("文字列中でファイルの終わりに到達しました");
@@ -137,7 +137,7 @@ public class Lexer {
 
     private void lexSymbol() throws Exception {
         tok = TokenType.SYMBOL;
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         while (true) {
             int c = reader.read();
             if (c < 0) throw new Exception("ファイルの終わりに到達しました");
