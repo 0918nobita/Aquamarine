@@ -47,6 +47,10 @@ public class Lexer {
                         tok = '/';
                     }
                     break;
+                case '"':
+                    /// lexString();
+                    // tok = TokenType.STRING;
+                    break;
                 default:
                     if (Character.isDigit((char) c)) {
                         reader.unread();
