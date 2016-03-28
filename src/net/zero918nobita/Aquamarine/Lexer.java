@@ -48,8 +48,8 @@ public class Lexer {
                     }
                     break;
                 case '"':
-                    /// lexString();
-                    // tok = TokenType.STRING;
+                    // lexString();
+                    tok = TokenType.STRING;
                     break;
                 default:
                     if (Character.isDigit((char) c)) {
