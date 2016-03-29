@@ -22,8 +22,7 @@ public class JTString extends JTCode {
             throw new Exception("文字列ではありません");
         }
         JTString s = (JTString)code;
-        StringBuilder bui = new StringBuilder();
-        return new JTString(bui.append(str).append(s.str).toString());
+        return new JTString(new StringBuilder().append(str).append(s.str).toString());
     }
 
     @Override
