@@ -2,6 +2,7 @@ package net.zero918nobita.Aquamarine;
 
 import java.io.Reader;
 import java.math.BigDecimal;
+import java.util.Hashtable;
 
 /**
  * Created by 0918nobita on 2016/03/09.
@@ -10,6 +11,13 @@ public class Lexer {
     private LexerReader reader; // トークンの読み込み元
     private int tok; // advance()の処理中にセットされる
     private Object val; // advance()の処理中にセットされる
+
+    private static Hashtable reserved = new Hashtable(); // 予約語を保持する
+
+    static { // 予約語を登録
+        reserved.put("true", new Integer(TokenType.TRUE));
+        reserved.put("false", new Integer(TokenType.FALSE));
+    }
 
     public Lexer(Reader r) {
         reader = new LexerReader(r);
@@ -149,6 +157,10 @@ public class Lexer {
         }
         String s = buf.toString();
         val = JTSymbol.intern(s);
+
+        if (reserved.containsKey(s)) {
+            tok = ((Integer)reserved.get(s)).intValue();
+        }
     }
 
     /** 空白文字をスキップする

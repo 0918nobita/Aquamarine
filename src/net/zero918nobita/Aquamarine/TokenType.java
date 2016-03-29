@@ -9,4 +9,6 @@ public class TokenType {
     public static final int DOUBLE = 258;
     public static final int SYMBOL = 259;
     public static final int STRING = 260;
+    public static final int TRUE = 261;
+    public static final int FALSE = 262;
 }
